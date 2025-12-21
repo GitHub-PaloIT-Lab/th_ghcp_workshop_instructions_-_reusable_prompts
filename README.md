@@ -1,5 +1,3 @@
-# วิธีรัน Todo Web App
-
 ## ⚠️ ปัญหา: Path มีอักขระพิเศษ
 
 Folder name มีอักขระพิเศษ (zero-width space) ที่ทำให้ npm install ไม่สำเร็จ
