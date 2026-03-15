@@ -1,114 +1,50 @@
-# แนวทางความปลอดภัย
+---
+applyTo: "server/**,**/*.js"
+description: "แนวทางความปลอดภัย: validation, sanitization, CORS/Helmet — ใช้กับโค้ดฝั่ง server และ JS ทั่วไป"
+---
 
-**หมายเหตุ**: โปรเจคนี้เป็นสื่อการสอน จึงไม่มี authentication และความปลอดภัยระดับ production แต่ยังคงมี best practices พื้นฐาน
+# Security Guidelines
 
-## Data Validation
+## Input Validation (ฝั่ง Server)
 
-### Client-side (React)
-- ตรวจสอบ input ก่อนส่งไป server
-- ป้องกันการส่งข้อมูลว่าง
-````instructions
-# แนวทางความปลอดภัย (Real-time Chat)
-
-หมายเหตุ: โปรเจคนี้เป็นสื่อการสอน จึงไม่มี authentication ระดับ production แต่ควรยึดหลักพื้นฐานเพื่อป้องกันปัญหาทั่วไป
-
-## การตรวจสอบข้อมูล (Validation)
-
-### ฝั่ง Client (React)
-- ตรวจสอบ/ตัดช่องว่างก่อนส่งข้อความ
-- จำกัดความยาวข้อความ เช่น 500 ตัวอักษร
-
+### ตรวจสอบข้อมูลจาก Client เสมอ
 ```javascript
-const handleSend = (e) => {
-  e.preventDefault()
-  const text = input.trim().slice(0, 500)
-  if (!text) return
-  socket.emit('message', { username, text, timestamp: Date.now() })
+// ตรวจว่ามี text และเป็น string
+if (!text || typeof text !== 'string') {
+  return res.status(400).json({ error: 'Text is required' });
+}
+
+// จำกัดความยาว
+if (text.trim().length === 0 || text.length > 200) {
+  return res.status(400).json({ error: 'Text must be 1-200 characters' });
 }
 ```
 
-### ฝั่ง Server (Express + Socket.io)
-- ตรวจสอบชนิดข้อมูลทุก event (`string`, `boolean`, ฯลฯ)
-- จำกัดความยาวและทำการ sanitize สำหรับข้อความ
-- ปฏิเสธ payload ที่ไม่ตรงสเปคทันที
+### Sanitization
+- ใช้ `trim()` กับ string input ทุกตัว
+- หลีกเลี่ยงการรับ HTML — React จะ escape ให้อัตโนมัติเมื่อแสดงผล
+- ตรวจ type ของข้อมูล (string, boolean, number)
 
+## Security Middleware
+
+### Helmet
 ```javascript
-io.on('connection', (socket) => {
-  socket.on('message', ({ username, text, timestamp }) => {
-    if (typeof text !== 'string') return
-    const safeText = text.trim().slice(0, 500)
-    if (!safeText) return
-    io.emit('message', {
-      username: typeof username === 'string' ? username.trim() : socket.data.username,
-      text: safeText,
-      timestamp: typeof timestamp === 'number' ? timestamp : Date.now()
-    })
-  })
-})
+const helmet = require('helmet');
+app.use(helmet());  // ตั้ง security headers อัตโนมัติ
 ```
 
-## จำกัดความถี่การส่ง (Rate Limiting แบบง่าย)
-- ป้องกัน spam โดยจำกัดจำนวนข้อความต่อช่วงเวลา
-- ใช้หน่วยความจำในตัว (per-socket) สำหรับสื่อการสอน
-
+### CORS
 ```javascript
-const MESSAGE_LIMIT = 8
-const WINDOW_MS = 3000
-
-io.on('connection', (socket) => {
-  let sent = [] // timestamps
-
-  socket.on('message', (payload) => {
-    const now = Date.now()
-    sent = sent.filter((t) => now - t < WINDOW_MS)
-    if (sent.length >= MESSAGE_LIMIT) return // drop
-    sent.push(now)
-    // validate + broadcast ตามตัวอย่างด้านบน
-  })
-})
+const cors = require('cors');
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
 ```
 
-## CORS และ Security Headers
-
-```javascript
-const cors = require('cors')
-const helmet = require('helmet')
-
-app.use(helmet())
-app.use(cors({ origin: 'http://localhost:5173' }))
-```
-
-## รายการ event ที่อนุญาต (Allowlist)
-- จัดการเฉพาะ event ที่กำหนด: `join`, `message`, `typing`, `disconnect`
-- ไม่เรียก `socket.onAny()` แบบเปิดกว้างโดยไม่ตรวจสอบ
-
-## การจัดการ Error
-- ไม่ส่งรายละเอียดภายใน (stack) กลับไป client
-- Log แบบกระชับเพื่อ debug
-
-```javascript
-io.on('connection', (socket) => {
-  socket.on('join', (payload) => {
-    try {
-      // validate + เข้าร่วม
-    } catch (err) {
-      console.error('join error:', err.message)
-    }
-  })
-})
-```
-
-## การป้องกัน XSS
-- ฝั่ง Client: แสดงข้อความเป็น text เท่านั้น ไม่ render HTML ที่ผู้ใช้ส่งมา
-- ฝั่ง Server: sanitize/ตัดข้อความ ไม่ส่ง markup กลับ
-
-## Best Practices สำหรับ production
-1. **Authentication & Authorization**: JWT/Session, จำกัดสิทธิ์การส่ง event
-2. **Rate Limiting ที่เสถียร**: Redis/Token bucket ต่อผู้ใช้/ห้อง
-3. **HTTPS**: บังคับใช้ SSL/TLS
-4. **Environment Variables**: เก็บ secrets ใน `.env`
-5. **Validation Library**: เช่น `zod`, `joi`
-6. **Monitoring/Logging**: เพิ่มเครื่องมือเช่น Winston, PM2
-7. **Scaling Socket.io**: ใช้ adapter (Redis) เมื่อมีหลาย instance
-
-````
+## หลักการสำคัญ
+1. **ไม่เชื่อ input จาก client** — validate ทุกครั้ง
+2. **ใช้ Helmet** — ป้องกัน common attacks ผ่าน HTTP headers
+3. **จำกัด CORS** — ระบุ origin ที่อนุญาต ไม่ใช้ `*` ใน production
+4. **ไม่เก็บ sensitive data ใน code** — ใช้ `.env` + dotenv
+5. **ใช้ parameterized routes** — `/api/todos/:id` (Express จัดการ routing ให้ปลอดภัย)

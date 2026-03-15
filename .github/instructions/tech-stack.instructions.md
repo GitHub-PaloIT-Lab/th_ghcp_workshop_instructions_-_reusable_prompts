@@ -1,84 +1,58 @@
-# เทคโนโลยีที่ใช้
+---
+applyTo: "server/**,client/**,*.js,*.jsx,*.json"
+description: "Tech stack และ dependencies: React 18 (CRA), Express REST API — ใช้กับไฟล์โค้ดและ config"
+---
+
+# Tech Stack
 
 ## Frontend (client/)
-- **Framework**: React 18.3.1
-- **Build Tool**: Vite 5.0.8
-- **ภาษา**: JavaScript (ES6+) - ไม่ใช้ TypeScript เพื่อความเรียบง่าย
-- **Styling**: Tailwind CSS 3.4.10
-- **Real-time**: Socket.io Client 4.7.2
-- **State Management**: React useState/useEffect (ไม่ใช้ library เพิ่มเติม)
+- **React 18** ผ่าน Create React App (CRA)
+- **JavaScript** (ไม่ใช้ TypeScript)
+- **CSS** ธรรมดา (ไม่ใช้ Tailwind หรือ CSS-in-JS)
+- **fetch API** สำหรับเรียก REST API
 
 ### Dependencies
 ```json
 {
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
-  "socket.io-client": "^4.7.2",
-  "tailwindcss": "^3.4.10",
-  "vite": "^5.0.8"
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0",
+  "react-scripts": "5.0.1"
 }
 ```
 
 ## Backend (server/)
-- **Runtime**: Node.js v25.0.0
-- **Framework**: Express.js 4.18.2
-- **Real-time**: Socket.io 4.7.2
-- **Security**: helmet 7.0.0
-- **Logging**: morgan 1.10.0
-- **CORS**: cors 2.8.5
-- **Environment**: dotenv 16.3.1
-- **Dev Tool**: nodemon 3.0.2
+- **Express.js** สำหรับ REST API
+- **cors** สำหรับ Cross-Origin requests
+- **helmet** สำหรับ security headers
+- **morgan** สำหรับ request logging
+- **dotenv** สำหรับ environment variables
+- **nodemon** สำหรับ auto-restart ตอน dev
 
 ### Dependencies
 ```json
 {
   "express": "^4.18.2",
-  "socket.io": "^4.7.2",
   "cors": "^2.8.5",
-  "helmet": "^7.0.0",
+  "helmet": "^7.1.0",
   "morgan": "^1.10.0",
-  "dotenv": "^16.3.1",
+  "dotenv": "^16.3.1"
+}
+```
+
+### Dev Dependencies
+```json
+{
   "nodemon": "^3.0.2"
 }
 ```
 
-## Socket.io Events
+## สิ่งที่ไม่ได้ใช้ (เพื่อความเรียบง่าย)
+- ❌ TypeScript
+- ❌ Database (ใช้ in-memory array แทน)
+- ❌ Socket.io / WebSocket
+- ❌ CSS Framework (Tailwind, Bootstrap)
+- ❌ State Management Library (Redux, Zustand)
 
-### Client to Server
-- `join` - ผู้ใช้เข้าร่วมแชท (ส่ง username)
-- `message` - ส่งข้อความ
-- `typing` - แจ้งสถานะกำลังพิมพ์
-- `disconnect` - ผู้ใช้ออกจากแชท
-
-### Server to Client
-- `message` - รับข้อความใหม่
-- `userJoined` - มีผู้ใช้เข้าร่วม
-- `userLeft` - มีผู้ใช้ออกไป
-- `typing` - มีคนกำลังพิมพ์
-- `userList` - รายชื่อผู้ใช้ออนไลน์
-
-## HTTP Endpoints
-- `GET /health` - Health check endpoint
-- `GET /` - API information
-
-## Development Environment
-- **Node Version Manager**: nvm (ดู .nvmrc)
-- **Node Version**: v25.0.0
-- **Package Manager**: npm
-- **Version Control**: Git + GitHub
-
-## การรันโปรเจค
-
-### Backend
-```bash
-cd server
-npm install
-npm run dev  # รันที่ http://localhost:8000
-```
-
-### Frontend
-```bash
-cd client
-npm install
-npm run dev  # รันที่ http://localhost:3000
-```
+## พอร์ตการรัน
+- Server: `http://localhost:8000`
+- Client: `http://localhost:3000`

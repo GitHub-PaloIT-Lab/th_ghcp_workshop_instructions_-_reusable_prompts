@@ -1,0 +1,21 @@
+.app {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.app h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 24px;
+    font-size: 2rem;
+}
+
+.error {
+    background-color: #fee;
+    color: #c00;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+}

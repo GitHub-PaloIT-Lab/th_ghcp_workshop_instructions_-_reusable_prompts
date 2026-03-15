@@ -1,25 +1,38 @@
-# /code-review — รีวิวโค้ด Chat App (React + Socket.io)
+---
+mode: "agent"
+description: "รีวิวโค้ด Todo App — ตรวจ code style, security, best practices ตาม instructions ของโปรเจค"
+---
 
-วัตถุประสงค์: ตรวจสอบคุณภาพโค้ดและความปลอดภัยของ Real-time Chat Application ทั้งฝั่งเซิร์ฟเวอร์ (Express + Socket.io) และฝั่งไคลเอนต์ (React + Vite + Tailwind)
+# รีวิวโค้ด Todo App
 
-โฟกัสการรีวิว:
-- การจัดการ Socket.io events: `join`, `message`, `typing`, `disconnect`
-- Validation ของ payload (ชนิดข้อมูล, การ trim, ความยาว)
-- ความปลอดภัย: ป้องกัน spam (rate limiting แบบง่าย), XSS (ไม่ render HTML จากผู้ใช้), CORS/Helmet
-- โครงสร้างคอมโพเนนต์ React: single responsibility, การจัดการ state, cleanup ของ socket handlers
-- ประสบการณ์ใช้งาน: auto-scroll, แสดง error states, การ debounce/throttle
+## สิ่งที่ต้องตรวจ
 
-สิ่งที่ต้องส่งมอบเมื่อเรียกใช้ prompt:
-- รายการปัญหาแบบเรียงลำดับความสำคัญ (High → Medium → Low)
-- คำแนะนำการแก้ไขที่ทำได้ทันทีพร้อมตัวอย่างแพตช์โค้ดสั้น ๆ
-- ความเสี่ยง/ผลกระทบและเหตุผลประกอบ (เช่น memory leak จากการไม่ off event handlers)
-- เช็กลิสต์สำหรับตรวจเองในอนาคต
+### 1. Code Style (ตาม code-style.instructions.md)
+- [ ] Naming: camelCase (ตัวแปร/ฟังก์ชัน), PascalCase (component), kebab-case (CSS)
+- [ ] Functional Components + Hooks เท่านั้น
+- [ ] ไม่มี inline styles (ยกเว้นจำเป็น)
+- [ ] แยกไฟล์ CSS ตาม component
 
-คำใบ้ prompt (คัดลอกไปใช้ได้ทันที):
-```
-ช่วยรีวิวโค้ด Chat App เน้น Socket.io + React โดยดู:
-- validation payload, ความปลอดภัย (rate limiting, XSS), CORS/Helmet
-- โครงสร้างคอมโพเนนต์, cleanup ของ event handlers
-- UX: auto-scroll, error states, typing debounce
-ส่งมอบ: รายการปัญหาเรียงความสำคัญ + แนวทางแก้พร้อมแพตช์ตัวอย่าง
-```
+### 2. Security (ตาม security.instructions.md)
+- [ ] Server validate input ทุก endpoint (type, length, empty)
+- [ ] ใช้ Helmet middleware
+- [ ] CORS ตั้งค่า origin ชัดเจน
+- [ ] trim() input ก่อนบันทึก
+
+### 3. React Best Practices
+- [ ] ใช้ `key` ที่เป็น unique id ใน list
+- [ ] ไม่ mutate state โดยตรง
+- [ ] useEffect dependency array ถูกต้อง
+- [ ] Error handling ครบ (try/catch, error state)
+
+### 4. API Design
+- [ ] HTTP methods ถูกต้อง (GET/POST/PUT/DELETE)
+- [ ] Status codes เหมาะสม (200/201/400/404)
+- [ ] Response format สม่ำเสมอ
+- [ ] Error response มี message ชัดเจน
+
+## วิธีรีวิว
+1. อ่านโค้ดทุกไฟล์ใน `server/` และ `client/src/`
+2. ตรวจตาม checklist ข้างบน
+3. แจ้งปัญหาพร้อมวิธีแก้ไข
+4. สรุปสิ่งที่ดีและสิ่งที่ควรปรับปรุง
