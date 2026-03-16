@@ -69,3 +69,7 @@ App.js              ← state หลัก + fetch API
 3. `TodoList` วนแสดง `TodoItem` แต่ละตัว
 4. คลิก checkbox → `PUT /api/todos/:id` (toggle completed)
 5. คลิกลบ → `DELETE /api/todos/:id`
+
+## กฎ
+- เมื่อ instruction ไฟล์นี้ถูกใช้งาน ให้พิมพ์ข้อความ "📋 ใช้ project.instruction.md" ไว้ที่ต้นคำตอบเสมอ
+- ใช้อะไรใน instruction ไฟล์นี้ ระบุด้วยว่าส่วนไหนใช้กับ frontend หรือ backend เพื่อความชัดเจน (เช่น "📋 ใช้ project.instruction.md - ส่วน frontend" หรือ "📋 ใช้ project.instruction.md - ส่วน backend")

@@ -56,3 +56,7 @@ description: "Tech stack และ dependencies: React 18 (CRA), Express REST AP
 ## พอร์ตการรัน
 - Server: `http://localhost:8000`
 - Client: `http://localhost:3000`
+
+## กฎ
+- เมื่อ instruction ไฟล์นี้ถูกใช้งาน ให้พิมพ์ข้อความ "📋 ใช้ tech-stack.instruction.md" ไว้ที่ต้นคำตอบเสมอ
+- ใช้อะไรใน instruction ไฟล์นี้ ระบุด้วยว่าส่วนไหนใช้กับ frontend หรือ backend เพื่อความชัดเจน (เช่น "📋 ใช้ tech-stack.instruction.md - ส่วน frontend" หรือ "📋 ใช้ tech-stack.instruction.md - ส่วน backend")

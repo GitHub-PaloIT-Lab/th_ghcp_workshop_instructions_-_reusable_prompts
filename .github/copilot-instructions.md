@@ -1,6 +1,7 @@
 # Copilot Instructions
 
 ## กฎ
+- เมื่อ instruction ไฟล์นี้ถูกใช้งาน ให้พิมพ์ข้อความ "📋 ใช้ copilot.instructions.md" ไว้ที่ต้นคำตอบเสมอ
 - การเขียนโค้ดต้องเป็นไปตาม code style ที่กำหนดไว้ใน .github/copilot-instructions.md
 - ห้ามเขียนโค้ดที่ไม่เป็นไปตาม code style ที่กำหนด
 - หากมีข้อสงสัยเกี่ยวกับ code style ให้สอบถามผู้ดูแลโครงการ

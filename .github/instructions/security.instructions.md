@@ -48,3 +48,7 @@ app.use(cors({
 3. **จำกัด CORS** — ระบุ origin ที่อนุญาต ไม่ใช้ `*` ใน production
 4. **ไม่เก็บ sensitive data ใน code** — ใช้ `.env` + dotenv
 5. **ใช้ parameterized routes** — `/api/todos/:id` (Express จัดการ routing ให้ปลอดภัย)
+
+## กฎ
+- เมื่อ instruction ไฟล์นี้ถูกใช้งาน ให้พิมพ์ข้อความ "📋 ใช้ security.instruction.md" ไว้ที่ต้นคำตอบเสมอ
+- ใช้อะไรใน instruction ไฟล์นี้ ระบุด้วยว่าส่วนไหนใช้กับ frontend หรือ backend เพื่อความชัดเจน (เช่น "📋 ใช้ security.instruction.md - ส่วน backend")

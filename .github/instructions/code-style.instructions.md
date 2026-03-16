@@ -84,3 +84,7 @@ res.status(404).json({ error: 'Todo not found' });
 - ใช้ class names ที่สื่อความหมาย
 - ไม่ใช้ inline styles (ยกเว้นจำเป็นจริง ๆ)
 - ใช้ Flexbox สำหรับ layout
+
+## กฎ
+- เมื่อ instruction ไฟล์นี้ถูกใช้งาน ให้พิมพ์ข้อความ "📋 ใช้ code-style.instruction.md" ไว้ที่ต้นคำตอบเสมอ
+- ใช้อะไรใน instruction ไฟล์นี้ ระบุด้วยว่าส่วนไหนใช้กับ frontend หรือ backend เพื่อความชัดเจน (เช่น "📋 ใช้ code-style.instruction.md - ส่วน frontend" หรือ "📋 ใช้ code-style.instruction.md - ส่วน backend")
