@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
 import './App.css';
 
 const API_URL = 'http://localhost:8000/api/todos';
@@ -109,14 +107,6 @@ function App() {
 
             {error && <p className="error">{error}</p>}
 
-            <TodoForm onAdd={addTodo} />
-
-            <TodoList
-                todos={todos}
-                onToggle={toggleTodo}
-                onEdit={editTodo}
-                onDelete={deleteTodo}
-            />
         </div>
     );
 }
