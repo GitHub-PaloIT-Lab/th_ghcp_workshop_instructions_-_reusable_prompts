@@ -1,5 +1,4 @@
 ---
-mode: "agent"
 description: "สร้าง React components สำหรับ Todo App — TodoForm, TodoList, TodoItem พร้อม CSS"
 ---
 

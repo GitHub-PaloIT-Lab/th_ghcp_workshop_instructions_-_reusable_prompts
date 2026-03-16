@@ -1,5 +1,4 @@
 ---
-mode: "agent"
 description: "รีวิวโค้ด Todo App — ตรวจ code style, security, best practices ตาม instructions ของโปรเจค"
 ---
 

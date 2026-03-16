@@ -1,5 +1,4 @@
 ---
-mode: "agent"
 description: "เพิ่มฟีเจอร์ใหม่ให้ Todo App แบบ end-to-end — ตั้งแต่ API → state → UI"
 ---
 
