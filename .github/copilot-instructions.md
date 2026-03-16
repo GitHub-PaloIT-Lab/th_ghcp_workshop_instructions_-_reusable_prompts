@@ -1,4 +1,8 @@
-# Copilot Instructions (สำหรับ Agent ที่ทำงานในโปรเจคนี้)
+# Copilot Instructions
+
+## กฎ
+- 
+
 
 ## ภาพรวมสถาปัตยกรรม
 - **โครงสร้างหลัก**: ฝั่ง `server/` เป็น Express REST API, ฝั่ง `client/` เป็น React 18 (JavaScript ไม่ใช้ TypeScript) ที่เชื่อมต่อผ่าน HTTP fetch API.
@@ -37,9 +41,5 @@
 - **todo-features** — CRUD workflow: ขั้นตอนเพิ่ม feature end-to-end + ตัวอย่างโค้ด + ปัญหาที่พบบ่อย. ดู [.github/skills/todo-features/SKILL.md](.github/skills/todo-features/SKILL.md).
 - **react-patterns** — React component patterns: decision tree สำหรับ state placement + controlled input + list rendering + callback props. ดู [.github/skills/react-patterns/SKILL.md](.github/skills/react-patterns/SKILL.md).
 - **api-design** — REST API design: HTTP methods, status codes, validation patterns + คำสั่ง curl ทดสอบ. ดู [.github/skills/api-design/SKILL.md](.github/skills/api-design/SKILL.md).
-
-## ภาษาและผลลัพธ์
-- ตอบเป็นภาษาไทยเสมอ
-- สรุปสิ่งที่ทำลง [README.KNOWLEDGE.MD](README.KNOWLEDGE.MD) ทุกครั้ง
 
 > หมายเหตุ: โปรเจคนี้เป็นสื่อการสอน GitHub Copilot ให้ยึดตามไฟล์ instructions/, prompts/, skills/ ในโปรเจคนี้เป็นหลัก
